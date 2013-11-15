@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/photo_gallery.css" />
+    <script type="text/javascript" src="{{STATIC_URL}}js/albumMain.js"></script>
+    <script type="text/javascript">
+        var current_token = '{{ csrf_token }}';
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="span12">
+<div class="page-header">
+  <h1>Zdjęcia<small> z Czarnorzek</small></h1>
+</div>
+</div>
+</div>
+    
+    <div class="row">
+    
+    {% for album in albums %}
+    <h3>{{ album.title }}</h3>
+    <div class="img_thumb img-rounded">
+        <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
+            {% with album.thumbnails.all.1 as thumb %}
+            <img src="{{ thumb.url }}" alt="{{ album.title }}" class="img-rounded" />
+            {% endwith %}
+        </a>
+    </div>
+    {% endfor %}
+    
+
+    </div>
+{% endblock %}

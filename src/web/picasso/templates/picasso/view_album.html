@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/photo_gallery.css" />
+    <script type="text/javascript" src="{{STATIC_URL}}js/albumMain.js"></script>
+    <script type="text/javascript">
+        var album_name = "{{ album_name }}";
+        var current_token = '{{ csrf_token }}';
+    </script>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+<div class="span12">
+<div class="page-header">
+  <h1>Zdjęcia<small> {{ album }}</small></h1>
+</div>
+</div>
+</div>
+
+    <div class="row">
+    <div class="span6">
+    
+    {% for photo in photos %}
+    <div class="img_thumb img-rounded">
+        <a href="{% url picasso_view_photo %}#{{ photo.photoid }}"
+            title="{{ photo.title }}">
+            {% with photo.thumbnails.all.1 as thumb %}
+            <img src="{{ thumb.url }}" alt="{{ photo.title }}" class="img-rounded" />
+            {% endwith %}
+        </a>
+    </div>
+    {% endfor %}
+    </div>
+    
+    <div class="span6">
+    <form class="form">
+	{% csrf_token %}
+	     <div class="well">
+	       <textarea rows=3 id="comment_text" class="input-block-level"></textarea>
+	       <button class="btn btn-primary" type="button" onclick="add_new_comment('{{ album_name }}'); return false;"><i class="icon-plus-sign"></i> komentuj</button>
+	     </div>
+	</form>
+    <table class="table table-hover">
+    <tbody id="comment_list">
+    </tbody>
+    </table>
+    </div>
+
+    </div>
+{% endblock %}

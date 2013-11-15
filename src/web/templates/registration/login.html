@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load url from future %}
+   
+{% block content %}
+
+{% if form.errors %}
+    <div class="alert alert-error">
+        Nazwa użytkownika lub hasło nie jest poprawne. Spróbuj ponownie.
+    </div>
+{% endif %}
+
+<div class="row">
+<div class="span6">
+    <div class="well">
+        <h3>Przedstaw się!</h3>
+        <p>Jest to potrzebne żeby odnaleźć Cię 31 grudnia ;)</p>
+        <a href="{% url 'new_account' %}" class="btn btn-large btn-primary">zapisz się!</a>
+    </div>
+    <!-- <div class="well">
+        <h3>Zaloguj przez gmail!</h3>
+        <a href="#/accounts/external/facebook_login" class="btn btn-large btn-primary pull-right">dawaj!</a>
+    </div> -->
+</div>
+<div class="span6">
+
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="well">
+
+{% csrf_token %}
+
+    {{ form.username.label_tag }}
+    {{ form.username }}
+    
+    {{ form.password.label_tag }}
+    {{ form.password }}
+    
+    <hr />
+    
+    <input type="submit" value="Zaloguj" class="btn btn-primary" />
+    <input type="hidden" name="next" value="{{ next }}" /></td>
+    
+</form>
+
+</div>
+
+{% endblock %}

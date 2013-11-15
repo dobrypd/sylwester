@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+   
+{% block content %}
+
+{% if form.errors %}
+    <div class="alert alert-error">
+        Błąd podczas tworzenia konta.
+    </div>
+{% endif %}
+
+<div class="row">
+
+<form action="{% url 'new_account' %}" method="post" class="form well">
+	{% csrf_token %}
+	{{ form.as_p }}
+    <input type="submit" value="Zapisz" class="button btn btn-primary" />
+</form>
+
+
+
+</div>
+
+{% endblock %}

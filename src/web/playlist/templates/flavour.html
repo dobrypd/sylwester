@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/master.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/flavourMain.js"></script>
+    <script type="text/javascript">
+        var current_token = '{{ csrf_token }}';
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="span12">
+<div class="page-header">
+  <h1>Wybierz co chcesz zjeść!<small> Zapisz swoje potrawy, my to zamówimy.</h1>
+</div>
+</div>
+</div>
+
+
+<div class="row">
+
+<div class="well">
+    <p class="lead">
+    Wybierz swoją preferencję.<br />
+    Dla wszystkich zamówimy tą, która zbierze najwięcej głosów.
+    </p> 
+    {% for dinner in dinners %}
+    <label class="radio">
+	  <input class="menu_pos" type="radio" name="optionsRadios" id="menu_pos_{{ dinner.id }}" value="{{ dinner.id }}" {% if dinner.is_my %}checked{% endif %}>
+	  {{ dinner.name }}
+	</label>
+	{% endfor %}
+    
+    <button class="pull-right btn btn-primary" onclick="save_flavour();" id="save_btn" >Zapisz</button>
+    
+    <p style="font-size:16px;">
+    Do każdego dania mięsnego przewidujemy ziemniaki plus zestaw surówek.
+    </p> 
+</div>
+
+</div>
+{% endblock %}

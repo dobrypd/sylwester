@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+
+.img_thumb{
+	width: 100px;
+	height: 100px;
+    float:left;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -ms-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    margin:5px;
+}
+
+.img_thumb:hover{
+    -webkit-transform:scale(1.5);
+    -moz-transform:scale(1.5);
+    -ms-transform:scale(1.5);
+    transform:scale(1.5);
+    -webkit-box-shadow:0px 0px 10px black;
+    -moz-box-shadow:0px 0px 10px black;
+    -ms-box-shadow:0px 0px 10px black;
+    box-shadow:0px 0px 10px black;
+}

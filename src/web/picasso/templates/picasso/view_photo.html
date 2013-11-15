@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.css" />
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    
+    
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/photo.css" />
+    <script type="text/javascript" src="{{STATIC_URL}}js/photoMain.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/master.js"></script>
+    <script type="text/javascript">
+        var current_token = '{{ csrf_token }}';
+    </script>
+    
+    <link rel="shortcut icon" href="{{STATIC_URL}}img/favicon.ico">
+
+</head>
+
+<body>
+   <div class="back_to_galery"> </div>
+   
+   
+   <div class="photo_content"> </div>  
+   
+   <div class="container">
+   <div class="incontainer">
+   {% comment %} 
+	   <p><a href="{% url picasso_view_album %}">back</a></p>
+   {% endcomment %}
+		<div class="control_btns pull-right">
+		  <a href="#" id="galery"><i class="icon-th-large"></i></a>
+		  <a href="#" id="prev_img"><i class="icon-chevron-left"></i></a>
+		  <a href="#" id="play_img"><i class="icon-play" id="play_icon"></i></a>
+		  <a href="#" id="next_img"><i class="icon-chevron-right"></i></a>
+		
+		</div>
+   
+        <table class="table">
+        <tbody id="comment_list">
+        </tbody>
+        </table> 
+	    <form class="form">
+	    {% csrf_token %}
+	         <div class="well">
+	           <textarea rows=2 id="comment_text" class="input-block-level"></textarea>
+	           <button class="btn btn-primary" type="button" onclick="add_new_comment(); return false;"><i class="icon-plus-sign"></i> komentuj</button>
+	         </div>
+	    </form>
+   </div>
+   </div>
+
+
+<!-- MODALS -->
+<div class="modal hide fade" id="fatal_error">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Ohhh no!!!!!!!!</h3>
+  </div>
+  <div class="modal-body">
+    <p class="error_msg">Coś strasznego stało się z serwerem, pewnie jest za dużo ludzi i nie wydala, poczekaj chwilę.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Spoko</a>
+  </div>
+</div>
+
+<div class="modal hide fade" id="normal_error">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Ojjj...</h3>
+  </div>
+  <div class="modal-body">
+    <p class="error_msg">Chyba coś przekombinowałeś...</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Spoko</button>
+  </div>
+</div>
+
+{% if user.username != 'piotrek' %}
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36861613-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+body {
+    padding-top: 50px;
+}
+
+.logo_icon {
+	background-image: url("/static/img/sh1.png");
+	background-size: 20%;
+    background-repeat: no-repeat;
+    background-position: left;
+    /*padding: 10px 10px 10px 70px;*/
+}
+
+.mybtnthumb {
+	width: 100px;
+	margin: 1px;
+}
+
+.cntdwn_cls {
+}

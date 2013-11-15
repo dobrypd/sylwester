@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: black;
+	background-image: url("/static/img/bg.jpg");
+	background-repeat: no-repeat;
+	padding-top: 20px;
+	
+}
+
+.main-img {
+	-webkit-box-shadow:0px 0px 50px 20px black;
+    -moz-box-shadow:0px 0px 50px 20px black;
+    -ms-box-shadow:0px 0px 50px 20px black;
+    box-shadow:0px 0px 50px 20px black;
+}
+
+.photo_content {
+	text-align: center;
+}
+
+.control_btns {
+	padding-top:0px;
+	padding-bottom:15px;
+}
+
+.container {
+	padding-top: 10px;
+	padding-bottom: 0px;
+}
+
+.incontainer {
+	border-width: 2px;
+	border-top-width: 0px;
+	border-color: #585858;
+	border-style: solid;
+	padding-top: 30px;
+	background: rgba(255, 255, 255, 0.72);
+	padding: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}

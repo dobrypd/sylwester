@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block head %}
+    
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="span12">
+<div class="page-header">
+  <h1>Sylwester!<small> Zróbmy go jeszcze bardziej epickim.</small></h1>
+</div>
+</div>
+</div>
+
+
+<div class="row">
+<div class="span12">
+<div id="myCarousel" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="{{STATIC_URL}}img/c/1.jpg" alt="" class="img-rounded">
+        <div class="carousel-caption">
+          <h4>Topka</h4>
+          <p>
+            Zobacz sylwestrową playlistę.
+          </p>
+          <a href="{% url playlist %}" class="btn btn-primary pull-right">Playlista!</a>
+        </div>
+      </div>
+      <div class="item">
+        <img src="{{STATIC_URL}}img/c/4.jpg" alt="" class="img-rounded">
+        <div class="carousel-caption">
+          
+          <p>
+				<script language="JavaScript">
+				TargetDate = "12/31/2013 6:00 PM";
+				//BackColor = "palegreen";
+				//ForeColor = "navy";
+				CountActive = true;
+				CountStepper = -1;
+				LeadingZero = true;
+				DisplayFormat = "<h1>%%D%% dni,</h1><br /><h2>%%H%% godzin,</h2><br /><h3>%%M%% minut,</h3><br /><h4>%%S%% sekund!</h4>";
+				FinishMessage = "<h1>Szaloną zabawę czas zacząć!</h1>";
+				</script>
+				<script type="text/javascript" src="{{STATIC_URL}}js/countdown.js"></script>
+           </p>
+        </div>
+      </div>
+      <div class="item">
+        <img src="{{STATIC_URL}}img/c/5.jpg" alt="" class="img-rounded">
+        <div class="carousel-caption">
+          <h4>Zdjęcia.</h4>
+          <p>Oglądaj, komentuj, przekazuj dalej.</p>
+          <a href="{% url picasso_list_albums %}" class="btn btn-primary pull-right">Przejdź do albumów!</a>
+        </div>
+      </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  </div>
+</div>
+</div>
+{% endblock %}

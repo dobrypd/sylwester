@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/master.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/playlistMain.js"></script>
+    <script type="text/javascript">
+        var current_token = '{{ csrf_token }}';
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="span12">
+<div class="page-header">
+{% if not new_year %}
+  <h1>Sylwestrowa playlista<small> już niedługo będzie ogłoszona topka!</small></h1>
+{% else %}
+<h1>Sylwestrowa playlista!</h1>
+{% endif %}
+</div>
+</div>
+</div>
+
+{% if not new_year %}
+<div class="row">
+
+  <div class="span12">
+    <table class="table table-hover">
+     <thead>
+      <tr>
+        <th>Twoja lista:</th>
+      </tr>
+    </thead>
+    <tbody id="mylist">
+
+    </tbody>
+    </table>    
+  </div>
+</div>
+
+{% endif %}
+
+
+<div class="row">
+    <div class="span12">
+    {% if new_year %}
+    <table class="table table-hover">
+     <thead>
+      <tr>
+        <th>Nazwa</th>
+      </tr>
+    </thead>
+    <tbody id="list">
+
+    </tbody>
+    </table>
+    </div>
+    {% else %}
+    <p>Teraz możesz głosować wyłącznie na te utwory, które zostały już dodane.</p>
+    <h2><strong>50 losowych</strong> utworów z playlisty:</h2>
+    <button class="btn btn-primary" onclick="reload_playlist(); return false;">
+     <i class="icon-refresh"></i>
+    </button>
+    <table class="table table-hover">
+     <thead>
+      <tr>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="list">
+
+    </tbody>
+    </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

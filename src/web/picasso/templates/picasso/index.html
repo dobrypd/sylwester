@@ -1,0 +1,49 @@
+{% extends 'picasso/base.html' %}
+
+{% block title %}Latest Photos{% endblock %}
+
+{% block body_id %}picasso_index{% endblock %}
+
+{% block content %}
+    <h1>Latest Photos</h1>
+    <h2 class="explain">The latest albums and photos</h2>
+    <h2 class="picasa">Albums</h2>
+    {% for album in albums %}
+    <div class="picasa-album">
+        <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
+            <h3>{{ album.title }}</h3>
+            {% if album.summary %}
+                <p>{{ album.summary }}</p>
+            {% else %}
+                <p>(no summary)</p>
+            {% endif %}
+            {% with album.thumbnails.all.1 as thumb %}
+            <img src="{{ thumb.url }}" alt="{{ album.title }}" />
+            {% endwith %}
+            <p class="published">Published on
+                {{ album.published|date:"n/j/y" }}</p>
+        </a>
+    </div>
+    {% endfor %}
+    <div class="clear"></div>
+    <p><a href="{% url picasso_list_albums %}">View all albums...</a></p>
+    <h2 class="picasa">Photos</h2>
+    {% for photo in photos %}
+    <div class="picasa-photo">
+        <a href="{{ photo.content.all.0.url }}" title="{{ photo.title }}">
+            <h3>{{ photo.title }}</h3>
+            {% if photo.summary %}
+                <p>{{ photo.summary }}</p>
+            {% else %}
+                <p>(no summary)</p>
+            {% endif %}
+            {% with photo.thumbnails.all.1 as thumb %}
+            <img src="{{ thumb.url }}" alt="{{ photo.title }}" />
+            {% endwith %}
+            <p class="published">Published on
+                {{ photo.published|date:"n/j/y" }}</p>
+        </a>
+    </div>
+    {% endfor %}
+    <div class="clear"></div>
+{% endblock %}
