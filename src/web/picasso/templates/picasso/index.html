@@ -5,6 +5,8 @@
 {% block body_id %}picasso_index{% endblock %}
 
 {% block content %}
+<div class="container marketing" id="start">
+
     <h1>Latest Photos</h1>
     <h2 class="explain">The latest albums and photos</h2>
     <h2 class="picasa">Albums</h2>
@@ -26,7 +28,7 @@
     </div>
     {% endfor %}
     <div class="clear"></div>
-    <p><a href="{% url picasso_list_albums %}">View all albums...</a></p>
+    <p><a href="{% url "picasso_list_albums" %}">View all albums...</a></p>
     <h2 class="picasa">Photos</h2>
     {% for photo in photos %}
     <div class="picasa-photo">

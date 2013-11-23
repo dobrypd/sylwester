@@ -176,11 +176,11 @@ play = function() {
 }
 
 $(document).keydown(function(e){
-    if (e.keyCode == 39) { 
+    if (e.keyCode == 37) { 
        document.location.hash = $("#prev_img").attr('href');
        return false;
     }
-    else if (e.keyCode == 37) {
+    else if (e.keyCode == 39) {
     	document.location.hash = $("#next_img").attr('href');
     	return false;
     }
@@ -197,12 +197,12 @@ $(document).ready(function(){
 	$("#play_img").click(function(event) {
 		played = !played;
 		if (played) {
-			$("#play_icon").removeClass("icon-play");
-			$("#play_icon").addClass("icon-pause");
+			$("#play_icon").removeClass("glyphicon-play");
+			$("#play_icon").addClass("glyphicon-pause");
 			play_interval_id = setInterval(play, 5000);
 		} else {
-			$("#play_icon").removeClass("icon-pause");
-			$("#play_icon").addClass("icon-play");
+			$("#play_icon").removeClass("glyphicon-pause");
+			$("#play_icon").addClass("glyphicon-play");
 			clearInterval(play_interval_id);
 		}
 	});

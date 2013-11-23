@@ -101,8 +101,8 @@ def get_photo(request, photoid):
             'album': selected_photo.album.name,
             'photoid': selected_photo.photoid,
             'summary': selected_photo.summary,
-            'next': next_photo.photoid,
-            'previous': last_photo.photoid
+            'next': last_photo.photoid,
+            'previous': next_photo.photoid
         }
         return HttpResponse(simplejson.dumps(photo),
                             mimetype='application/json')
@@ -118,7 +118,7 @@ def get_photo_comments(request, photoid):
         comments = []
         try:
             qs = PhotoComment.objects.filter(photo=selected_photo).order_by(
-                                                                   "add_time")
+                                                                   "-add_time")
             for row in qs:
                 comments.append({
                     'id': row.id,

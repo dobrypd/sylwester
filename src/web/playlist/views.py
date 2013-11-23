@@ -120,15 +120,12 @@ def add_new_track(request):
     xhr = 'xhr' in request.GET
 
     if xhr and request.method == "POST":
-        track_name = request.POST['track_name']
         track_link = request.POST['track_link']
-
-        if track_name == "":
-            s_name = crowl_known_services(track_link)
-            if s_name is not None:
-                track_name = s_name
-            else:
-                track_name = "NoName"
+        s_name = crowl_known_services(track_link)
+        if s_name is not None:
+            track_name = s_name
+        else:
+            track_name = "NoName"
 
         result = ("?", None)
         try:
@@ -288,7 +285,7 @@ def get_top_list(request):
 def get_comments(prop):
     comments = []
     try:
-        qs = PropComment.objects.filter(proposition=prop).order_by("add_time")
+        qs = PropComment.objects.filter(proposition=prop).order_by("-add_time")
         for row in qs:
             comments.append({
                 'id': row.id,
@@ -308,7 +305,7 @@ def get_propose_list(request):
         try:
             qs = Proposition.objects.extra(
                 select={'thumbs': 'thumbs_up - thumbs_down'},
-                order_by=('-thumbs',))
+                order_by=('-add_time', '-thumbs'))
             for row in qs:
                 prop.append({
                     'id': row.id,

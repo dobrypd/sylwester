@@ -1,31 +1,31 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/photo_gallery.css" />
-    <script type="text/javascript" src="{{STATIC_URL}}js/albumMain.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "css/photo_gallery.css" %}" />
     <script type="text/javascript">
         var current_token = '{{ csrf_token }}';
     </script>
 {% endblock %}
 
 {% block content %}
-<div class="row">
-<div class="span12">
+
+<div class="container marketing" id="start">
+
+<div class="row featurette">
 <div class="page-header">
   <h1>Zdjęcia<small> z Czarnorzek</small></h1>
 </div>
 </div>
-</div>
     
-    <div class="row">
+    <div class="row featurette">
     
     {% for album in albums %}
-    <h3>{{ album.title }}</h3>
-    <div class="img_thumb img-rounded">
+    <h3 class="">{{ album.title }}</h3>
+    <div class="img_thumb img-circle">
         <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
             {% with album.thumbnails.all.1 as thumb %}
-            <img src="{{ thumb.url }}" alt="{{ album.title }}" class="img-rounded" />
+            <img src="{{ thumb.url }}" alt="{{ album.title }}" class="img_thumb img-circle" />
             {% endwith %}
         </a>
     </div>
@@ -33,4 +33,9 @@
     
 
     </div>
+    
+{% endblock %}
+
+{% block backscripts %}
+<script type="text/javascript" src="{% static "js/albumMain.js" %}"></script>
 {% endblock %}

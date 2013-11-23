@@ -67,5 +67,5 @@ var load_list = function(album_name){
 };
 
 $(document).ready(function(){
-	load_list(album_name);
+	//load_list(album_name);
 });

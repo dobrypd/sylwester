@@ -1,28 +1,38 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block content %}
 
-<div class="row">
+<div class="container marketing" id="start">
+
+<div class="row marketing">
     <div class="well">fun & done</div>
 </div>
 
-<link rel="stylesheet" href="{{STATIC_URL}}css/contact.css" type="text/css" media="all" />
-<script src="{{STATIC_URL}}js/contact.js" type="text/javascript"></script>
+<hr class="featurette-divider">
+
+<link rel="stylesheet" href="{% static "css/contact.css" %}" type="text/css" media="all" />
+
+<div class="row featurette">
 
 <div class="example" id="gall">
-    <img src="{{STATIC_URL}}img/contact/Pic1.jpg"><span></span>
-    <img src="{{STATIC_URL}}img/contact/Pic2.jpg"><span></span>
-    <img src="{{STATIC_URL}}img/contact/Pic3.jpg"><span></span>
-    <img src="{{STATIC_URL}}img/contact/Pic4.jpg"><span></span>
-    <img src="{{STATIC_URL}}img/contact/Pic5.jpg"><span></span>
-    <img src="{{STATIC_URL}}img/contact/Pic6.jpg"><span></span>
-    <img src="{{STATIC_URL}}img/contact/Pic7.jpg"><span></span>
-    <img src="{{STATIC_URL}}img/contact/Pic8.jpg"><span></span>
-    <img src="{{STATIC_URL}}img/contact/Pic9.jpg"><span></span>
-    <img src="{{STATIC_URL}}img/contact/Pic10.jpg"><span></span>
-    <img src="{{STATIC_URL}}img/contact/Pic11.jpg"><span></span> 
-    <img src="{{STATIC_URL}}img/contact/Pic12.jpg"><span></span>
+    <img src="{% static "img/contact/Pic1.jpg" %}"><span></span>
+    <img src="{% static "img/contact/Pic2.jpg" %}"><span></span>
+    <img src="{% static "img/contact/Pic3.jpg" %}"><span></span>
+    <img src="{% static "img/contact/Pic4.jpg" %}"><span></span>
+    <img src="{% static "img/contact/Pic5.jpg" %}"><span></span>
+    <img src="{% static "img/contact/Pic6.jpg" %}"><span></span>
+    <img src="{% static "img/contact/Pic7.jpg" %}"><span></span>
+    <img src="{% static "img/contact/Pic8.jpg" %}"><span></span>
+    <img src="{% static "img/contact/Pic9.jpg" %}"><span></span>
+    <img src="{% static "img/contact/Pic10.jpg" %}"><span></span>
+    <img src="{% static "img/contact/Pic11.jpg" %}"><span></span> 
+    <img src="{% static "img/contact/Pic12.jpg" %}"><span></span>
 
 </div>
 
+{% endblock %}
+
+{% block backscripts %}
+<script src="{% static "js/contact.js" %}" type="text/javascript"></script>
 {% endblock %}

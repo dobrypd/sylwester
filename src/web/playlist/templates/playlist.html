@@ -1,29 +1,69 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block head %}
-    <script type="text/javascript" src="{{STATIC_URL}}js/master.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/playlistMain.js"></script>
     <script type="text/javascript">
         var current_token = '{{ csrf_token }}';
     </script>
 {% endblock %}
 
 {% block content %}
-<div class="row">
-<div class="span12">
-<div class="page-header">
-{% if not new_year %}
-  <h1>Sylwestrowa playlista<small> już niedługo będzie ogłoszona topka!</small></h1>
-{% else %}
-<h1>Sylwestrowa playlista!</h1>
-{% endif %}
-</div>
-</div>
-</div>
+<div class="container marketing" id="start">
 
-{% if not new_year %}
-<div class="row">
 
+<hr class="featurette-divider">
+
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="img-circle" src="{% static "img/addnew.jpg" %}" alt="Add an title">
+          <h2>Dodaj Twój ulubiony utwór!</h2>
+          <p>Wklej link z youtube aby dodać.</p>
+          <p><a class="btn btn-default" href="#addnew">Dodaj &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="{% static "img/list.jpg" %}" alt="Yours">
+          <h2>Twoje dodane utwory</h2>
+          <p>Jest tu lista utworów na które zagłosowałeś, pamiętaj że możesz wybrać tylko {{max_votes}} ulubionych.</p>
+          <p><a class="btn btn-default" href="#mylista">Przejdź do mojej listy &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="{% static "img/rand.jpg" %}" alt="Randlist">
+          <h2>Lista dodanych.</h2>
+          <p>Przeglądaj utwory, które zostały dodane wcześniej, może znajdziesz coś ciekawego.</p>
+          <p><a class="btn btn-default" href="#randy">Przeglądaj &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+<hr class="featurette-divider">
+
+ <div class="row featurette" id="addnew">
+ 
+  <div class="span7">
+  <div class="well">    
+    <form class="form-inline">
+    {% csrf_token %}
+         <div class="input-prepend input-append">
+           <!-- <input id="track_name" type="text" class="input-normal" placeholder="Autor - Tytuł">  -->
+           <input id="track_link" type="text" class="form-control" placeholder="link">
+           <hr>
+           <button class="btn btn" type="button" onclick="add_new_track(); return false;"><i class="glyphicon glyphicon-plus"></i> DODAJ</button>
+         </div>
+    </form>
+    </div>
+  </div>
+  
+  <div class="span5">
+  <div class="span12">
+     <table class="table table-hover">
+      <thead>
+       <tr>
+   </div>
+ </div>
+
+
+<hr class="featurette-divider">
+<!--  #addnew  -->
+{% if not new_year %}
+<div class="row featurette" id="mylista">
   <div class="span12">
     <table class="table table-hover">
      <thead>
@@ -41,8 +81,9 @@
 {% endif %}
 
 
-<div class="row">
-    <div class="span12">
+<hr class="featurette-divider">
+
+<div class="row featurette" id="randy">
     {% if new_year %}
     <table class="table table-hover">
      <thead>
@@ -56,10 +97,9 @@
     </table>
     </div>
     {% else %}
-    <p>Teraz możesz głosować wyłącznie na te utwory, które zostały już dodane.</p>
     <h2><strong>50 losowych</strong> utworów z playlisty:</h2>
     <button class="btn btn-primary" onclick="reload_playlist(); return false;">
-     <i class="icon-refresh"></i>
+     <i class="glyphicon glyphicon-refresh"></i>
     </button>
     <table class="table table-hover">
      <thead>
@@ -73,5 +113,9 @@
     </table>
     </div>
     {% endif %}
-</div>
+{% endblock %}
+
+{% block backscripts %}
+    <script type="text/javascript" src="{% static "js/master.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/playlistMain.js" %}"></script>
 {% endblock %}

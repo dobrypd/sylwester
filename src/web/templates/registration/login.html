@@ -9,19 +9,23 @@
     </div>
 {% endif %}
 
+
+<div class="container marketing" id="start">
+
 <div class="row">
 <div class="span6">
     <div class="well">
-        <h3>Przedstaw się!</h3>
-        <p>Jest to potrzebne żeby odnaleźć Cię 31 grudnia ;)</p>
-        <a href="{% url 'new_account' %}" class="btn btn-large btn-primary">zapisz się!</a>
+        <h3>Zarejestruj się.</h3>
+        <a href="{% url 'new_account' %}" class="btn btn-large btn-primary">Rejestracja</a>
     </div>
-    <!-- <div class="well">
-        <h3>Zaloguj przez gmail!</h3>
-        <a href="#/accounts/external/facebook_login" class="btn btn-large btn-primary pull-right">dawaj!</a>
-    </div> -->
+    <div class="well">
+        <h3>Zaloguj przez facebooka!</h3>
+        <a href="{% url 'social:begin' "facebook" %}" class="btn btn-large btn-primary">facebook</a>
+    </div>
 </div>
 <div class="span6">
+
+<hr class="featurette-divider">
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="well">
 

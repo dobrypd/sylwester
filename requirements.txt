@@ -1,6 +1,6 @@
 django
 pysqlite
-django-social-auth
+python-social-auth
 ipdb
 ipython
 gdata

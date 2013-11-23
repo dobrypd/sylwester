@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -6,20 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sylwester Czarnorzeki.">
     <meta name="author" content="Piotr Dobrowolski">
-    <link rel="shortcut icon" href="{{STATIC_URL}}img/favicon.ico">
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>                                                           
-        <script src="{{STATIC_URL}}js/html5shiv.js"></script>                                   
-        <script src="{{STATIC_URL}}js/respond.min.js"></script>                                 
+        <script src="{% static "js/html5shiv.js" %}"></script>                                   
+        <script src="{% static "js/respond.min.js" %}"></script>                                 
     <![endif]-->  
 
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/Main.css" />
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "css/Main.css" %}" />
     <!--
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/style.css" />
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}" />
     -->
-    <link href="css/carousel.css" rel="stylesheet">
+    <link href="{% static "css/carousel.css" %}" rel="stylesheet">
 
     {% block head %}
     {% endblock %}
@@ -27,44 +28,56 @@
 </head>
 
 <body>
+<!-- NAVBAR
+================================================== -->
+    <div class="navbar-wrapper">
+      <div class="container">
 
-	<div class="navbar navbar-fixed-top">
-	  <div class="navbar-inner">
-	    <a class="brand logo_icon" href="{% url home %}">Sylwester Czarnorzeki 2012</a>
-	    <ul class="nav">
-	      <li {% if title == "home" %}class="active"{% endif %}><a href="{% url home %}"><i class="icon-glass"></i> Home</a></li>
-	      <li {% if title == "playlist" %}class="active"{% endif %}><a href="{% url playlist %}"><i class="icon-list"></i> Playlista</a></li>
-	      <li {% if title == "propose" %}class="active"{% endif %}><a href="{% url propose %}"><i class="icon-plus-sign"></i> Pomysły</a></li>
-	      <!--  <li><a href="#"><i class="icon-thumbs-up"></i> Polub na fejsie</a></li> -->
-	      <!--  <li {% if title == "flavour" %}class="active"{% endif %}><a href="{% url flavour %}"><i class="icon-shopping-cart"></i> Co będę szamał</a></li> -->
-	      <li {% if title == "photos" %}class="active"{% endif %}><a href="{% url picasso_list_albums %}"><i class="icon-camera"></i> Zdjęcia</a></li>
-	    </ul>
-	    <ul class="nav pull-right">
-	       {% if user.is_authenticated %}
-	           <li><a href="{% url logout %}?next={% url login %}" rel="tooltip" data-placement="bottom" title="Wyloguj!"><i class="icon-user"></i> {{ user.username }}</a></li>
-	       {% else %}
-	           <li><a href="{% url propose %}"><i class="icon-user"></i> Logowanie</a></li>
-	       {% endif %}    
-	    </ul>
-	  </div>
-	</div>
+        <div class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+          
+             <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand logo_icon " href="{% url "home" %}">Sylwester Czarnorzeki</a>
+            </div>            
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+              
+                <li {% if title == "home" %}class="active"{% endif %}><a href="{% url "home" %}"><i class="icon-glass"></i> Home</a></li>
+		        <li {% if title == "playlist" %}class="active"{% endif %}><a href="{% url "playlist" %}"><i class="icon-list"></i> Playlista</a></li>
+		        <li {% if title == "propose" %}class="active"{% endif %}><a href="{% url "propose" %}"><i class="icon-plus-sign"></i> Komentarze</a></li>
+		        <!--  <li><a href="#"><i class="icon-thumbs-up"></i> Polub na fejsie</a></li> -->
+		        <!--  <li {% if title == "flavour" %}class="active"{% endif %}><a href="{% url "flavour" %}"><i class="icon-shopping-cart"></i> Co będę szamał</a></li> -->
+                <li {% if title == "photos" %}class="active"{% endif %}><a href="{% url "picasso_list_albums" %}"><i class="icon-camera"></i> Zdjęcia</a></li>
+              </ul>
+              <ul class="nav navbar-nav pull-right">
+	           {% if user.is_authenticated %}
+	               <li><a href="{% url "logout" %}?next={% url "login" %}" rel="tooltip" data-placement="bottom" title="Wyloguj!"><i class="icon-user"></i> wyloguj {{ user.username }}</a></li>
+	           {% else %}
+	               <li><a href="{% url "propose" %}"><i class="icon-user"></i> Logowanie</a></li>
+	           {% endif %}    
+	          </ul>
+            </div>
+          </div>
+        </div>
 
+      </div>
+    </div>
     
-    <div class="container">
-
         {% block content %}
         {% endblock %}
-        
-        <div class="row">
-        <div class="span12">
-		    <hr />
-		    <footer>
-		       <small><a href = {% url contact %} >&copy; Piotr Dobrowolski 2012</a></small>
-	        </footer>
-	    </div>
-        </div>
-    </div>
 
+ <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 Piotr Dobrowolski &middot; <a href="http://dobrowolski.net.pl/#contact">Contact</a></p>
+      </footer>
+
+</div><!-- /.container -->
 
 <!-- MODALS -->
 <div class="modal hide fade" id="fatal_error">
@@ -93,17 +106,28 @@
   </div>
 </div>
 
-{% if user.username != 'piotrek' %}
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36861613-1']);
-  _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/mywork.js" %}"></script>
+
+{% block backscripts %}
+{% endblock %}
+
+{% if user.username != 'piotrek' %}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45031160-1', 'dobrowolski.net.pl');
+  ga('send', 'pageview');
+
 </script>
 {% endif %}
 

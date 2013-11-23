@@ -1,0 +1,43 @@
+#!/bin/bash
+
+
+#!/bin/bash
+
+#
+#   Requirements:
+#   * youtube-dl
+#   * id3v2
+#   * split_title.py script
+#
+#   Author: Piotr Dobrowolski
+#   dobrypd@gmail.com
+#
+
+CURRENT_TIMESTAMP=`date +%s`
+CURRENT_DIR=`pwd`
+TMP_DIR=/tmp
+GBR_TMP_DIR=grabber_$CURRENT_TIMESTAMP
+YTD=youtube-dl
+ID3=id3v2
+SCRIPTS_HOME=/home/piotrek/mybin/scripts
+TITLE_SPLITTER=title_splitter.py
+PYTHON=python
+OUTPUT_EXTENSION=mp3
+
+
+cd $TMP_DIR
+mkdir $GBR_TMP_DIR
+cd $GBR_TMP_DIR
+echo "Executing downloader..."
+$YTD -x --audio-quality 0 --audio-format mp3 -o '%(title)s.%(ext)s' $1
+for i in *
+do
+    echo "Trying to change tags for ($i)..."
+    $PYTHON $SCRIPTS_HOME/$TITLE_SPLITTER --id3v2 "$i"
+    $ID3 -c "Downloaded from youtube using grabber (c) Piotr Dobrowolski." *.$OUTPUT_EXTENSION
+    mv *.$OUTPUT_EXTENSION $CURRENT_DIR
+    break
+done
+
+cd $CURRENT_DIR
+

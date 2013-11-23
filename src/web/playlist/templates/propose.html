@@ -1,34 +1,38 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block head %}
-    <script type="text/javascript" src="{{STATIC_URL}}js/master.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/proposeMain.js"></script>
     <script type="text/javascript">
         var current_token = '{{ csrf_token }}';
     </script>
 {% endblock %}
 
 {% block content %}
-<div class="row">
-<div class="span12">
+
+<div class="container marketing" id="start">
+
+
+<div class="row featurette">
 <div class="page-header">
-  <h1>Podziel się pomysłem!<small> Zaproponuj pomysł, my postaramy się go zrealizować.</h1>
-</div>
+  <h1>Komentarze... pomysły...<small> wszystko co Ci przyjdzie do głowy.</h1>
 </div>
 </div>
 
-<div class="row">
+<div class="row featurette">
 <form class="form">
 {% csrf_token %}
-     <div class="input-prepend input-append">
+     <div class="input">
        <span class="add-on"><i class="icon-heart"></i></span>
-       <input id="prop_text" type="text" class="input-xxlarge">
-       <button class="btn btn" type="button" onclick="add_new_prop(); return false;"><i class="icon-plus-sign"></i> DODAJ NOWY</button>
+       <input id="prop_text" type="text" class="form-control">
+       <hr>
+       <button class="btn btn" type="button" onclick="add_new_prop(); return false;"><i class="glyphicon glyphicon-plus"></i> DODAJ NOWY</button>
      </div>
 </form>
 </div>
 
-<div class="row">
+<hr class="featurette-divider">
+
+<div class="row featurette">
     <table class="table table-hover">
      <thead>
       <tr>
@@ -42,4 +46,11 @@
     </tbody>
     </table>
 </div>
+
+{% endblock %}
+
+
+{% block backscripts %}
+    <script type="text/javascript" src="{% static "js/master.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/proposeMain.js" %}"></script>
 {% endblock %}

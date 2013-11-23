@@ -1,8 +1,8 @@
 @CHARSET "UTF-8";
 
 body {
-	background-color: black;
-	background-image: url("/static/img/bg.jpg");
+	background-color: rgb(20, 20, 20);
+	//background-image: url("/static/img/bg.jpg");
 	background-repeat: no-repeat;
 	padding-top: 20px;
 	

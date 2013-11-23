@@ -1,24 +1,24 @@
+{% load staticfiles %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.css" />
-    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" />
+    <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
     
     
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/photo.css" />
-    <script type="text/javascript" src="{{STATIC_URL}}js/photoMain.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/master.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "css/photo.css" %}" />
+    <script type="text/javascript" src="{% static "js/photoMain.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/master.js" %}"></script>
     <script type="text/javascript">
         var current_token = '{{ csrf_token }}';
     </script>
     
-    <link rel="shortcut icon" href="{{STATIC_URL}}img/favicon.ico">
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
 
 </head>
 
@@ -31,27 +31,29 @@
    <div class="container">
    <div class="incontainer">
    {% comment %} 
-	   <p><a href="{% url picasso_view_album %}">back</a></p>
+	   <p><a href="{% url "picasso_view_album" %}">back</a></p>
    {% endcomment %}
 		<div class="control_btns pull-right">
-		  <a href="#" id="galery"><i class="icon-th-large"></i></a>
-		  <a href="#" id="prev_img"><i class="icon-chevron-left"></i></a>
-		  <a href="#" id="play_img"><i class="icon-play" id="play_icon"></i></a>
-		  <a href="#" id="next_img"><i class="icon-chevron-right"></i></a>
+		  <a href="#" id="galery"><i class="glyphicon glyphicon-th-large"></i></a>
+		  <a href="#" id="prev_img"><i class="glyphicon glyphicon-chevron-left"></i></a>
+		  <a href="#" id="play_img"><i class="glyphicon glyphicon-play" id="play_icon"></i></a>
+		  <a href="#" id="next_img"><i class="glyphicon glyphicon-chevron-right"></i></a>
 		
 		</div>
    
-        <table class="table">
-        <tbody id="comment_list">
-        </tbody>
-        </table> 
 	    <form class="form">
 	    {% csrf_token %}
 	         <div class="well">
-	           <textarea rows=2 id="comment_text" class="input-block-level"></textarea>
+	           <textarea rows=2 id="comment_text" class="form-control"></textarea>
+	           <br>
 	           <button class="btn btn-primary" type="button" onclick="add_new_comment(); return false;"><i class="icon-plus-sign"></i> komentuj</button>
 	         </div>
 	    </form>
+	    
+	    <table class="table">
+        <tbody id="comment_list">
+        </tbody>
+        </table>
    </div>
    </div>
 
@@ -84,16 +86,15 @@
 </div>
 
 {% if user.username != 'piotrek' %}
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36861613-1']);
-  _gaq.push(['_trackPageview']);
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+  ga('create', 'UA-45031160-1', 'dobrowolski.net.pl');
+  ga('send', 'pageview');
+
 </script>
 {% endif %}
 

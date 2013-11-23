@@ -6,11 +6,15 @@ from playlist.views import (HomeView, ContactView, PlaylistView, ProposeView,
                             get_my_list, get_list, get_propose_list, thumb_up,
                             thumb_down, add_new_proposition, set_menu,
                             new_account, add_new_comment, get_top_list)
+from django.conf.urls.static import static
+from django.conf import settings
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
+    
+    url('', include('social.apps.django_app.urls', namespace='social')),
 
     url(r'^playlist$', login_required(PlaylistView.as_view()),
         name='playlist'),
@@ -48,11 +52,11 @@ urlpatterns = patterns('',
     url(r'^accounts/external/profile/$', HomeView.as_view(), name='externalprofile'),
     #url(r'^accounts/ajaxlogin/$',  'numberlink.main.views.loginajax', name=''),
     url(r'^accounts/logout/', 'django.contrib.auth.views.logout', name='logout'),
-    url(r'', include('social_auth.urls')),
+    #url(r'', include('social_auth.urls')),
     #external authorisation via facebook, openid etc.
     #url(r'^accounts/external/', include('socialauth.urls')),
 
     url(r'^photos/', include('picasso.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

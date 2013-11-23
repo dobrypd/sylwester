@@ -104,11 +104,10 @@ var show_comment_box = function(prop_id) {
 	document.getElementById("comment_btn_" + prop_id).onclick = function (){return false;};
 	var text_col = $("#comment_box_" + prop_id);
 	text_col.append("<br /> "
-	+ "<form class=\"form\">"
-	+ "     <div class=\"input-prepend input-append\">"
-	+ "       <span class=\"add-on\"><i class=\"icon-comment\"></i></span>"
-	+ "       <input id=\"comment_text" + prop_id + "\" type=\"text\" class=\"input-large\">"
-	+ "       <button class=\"btn\" type=\"button\" onclick=\"comment_on(" + prop_id + "); return false;\">dodaj</button>"
+	+ "<form class=\"form-inline\">"
+	+ "     <div class=\"col-xs-3\">"
+	+ "       <input id=\"comment_text" + prop_id + "\" type=\"text\" class=\"form-control\"> <hr>"
+	+ "       <button class=\"btn\" type=\"button\" onclick=\"comment_on(" + prop_id + "); return false;\"> <i class=\"glyphicon glyphicon-comment\"></i> dodaj</button>"
 	+ "     </div>"
 	+ "</form>"
 	);
@@ -146,18 +145,18 @@ var draw_list = function(where, list_in_json) {
 		row.append("<td>"
 				+ "<button class=\"btn btn-small btn-success mybtnthumb\" onclick=\""
 				+ "thumb_up(" + propose.id + "); return false;"
-				+ "\"><i class=\"icon-thumbs-up\"></i> <small>"
+				+ "\"><i class=\"glyphicon glyphicon-thumbs-up\"></i> <small>"
 				+ propose.thumbs_up
 				+ "</small></button> "
 				+ "<button class=\"btn btn-small btn-danger mybtnthumb\" onclick=\""
 				+ "thumb_down(" + propose.id + "); return false;"
-				+ "\"><i class=\"icon-thumbs-down\"></i> <small>"
+				+ "\"><i class=\"glyphicon glyphicon-thumbs-down\"></i> <small>"
 				+ propose.thumbs_down
 				+ "</small></button>"
 				+ "<button class=\"btn btn-small btn-info mybtnthumb\" "
 				+ "id=\"comment_btn_" + propose.id + "\" onclick=\""
 				+ "show_comment_box(" + propose.id + "); return false;"
-				+ "\"><i class=\"icon-comment\"></i> <small>"
+				+ "\"><i class=\"glyphicon glyphicon-comment\"></i> <small>"
 				+ "Skomentuj"
 				+ "</small></button>"
 				+"</td>");

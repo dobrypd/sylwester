@@ -45,6 +45,7 @@ class Proposition(models.Model):
     comment = models.TextField()
     thumbs_up = models.IntegerField(default=0)
     thumbs_down = models.IntegerField(default=0)
+    add_time = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return (unicode(self.user) + ": " + unicode(self.comment)

@@ -104,13 +104,13 @@ var draw_list = function(where, list_in_json, is_my) {
 						+ "remove_track("
 						+ track.id
 						+ "); return false;"
-						+ "\"><i class=\"icon-minus-sign\"></i></button></td>");
+						+ "\"><i class=\"glyphicon glyphicon-minus-sign\"></i></button></td>");
 			} else {
 				row.append("<td><button class=\"btn btn-small\" onclick=\""
 						+ "add_track("
 						+ track.id
 						+ "); return false;"
-						+ "\"><i class=\"icon-plus-sign\"></i></button></td>");
+						+ "\"><i class=\"glyphicon glyphicon-plus-sign\"></i></button></td>");
 			}
 		}
 		where.append(row);
