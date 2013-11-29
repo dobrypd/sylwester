@@ -59,4 +59,4 @@ urlpatterns = patterns('',
     url(r'^photos/', include('picasso.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+)

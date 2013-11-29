@@ -143,7 +143,26 @@ var load_my_list = function(){
 var load_list = function(){
 	var list = $("#list");
 
-	$.getJSON('/playlist/get_list/50?xhr',
+	$.getJSON('/playlist/get_list/20?xhr',
+		{}, 
+		function(json, status, xhr) {
+			if (status == "error") {
+				var msg = "K%%%a coś nie działa :/ sory ";
+				msg += xhr.status + " " + xhr.statusText;
+				my_alert(msg, null, true);
+  			}
+			if (status == "success") {
+				list.hide('slow');
+				draw_list(list, json, false);
+				list.show('slow');
+			}
+    });
+};
+
+var load_top_list = function(){
+	var list = $("#list");
+
+	$.getJSON('/playlist/get_top_list?xhr',
 		{}, 
 		function(json, status, xhr) {
 			if (status == "error") {
@@ -163,7 +182,6 @@ var load_list = function(){
 var reload_playlist = function() {
 	load_list();
 }
-
 
 
 $(document).ready(function(){

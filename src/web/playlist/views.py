@@ -84,7 +84,7 @@ class ContactView(TemplateView):
 def find_track(track_name, track_link):
     tracks_by_link = Track.objects.filter(link=track_link)
     if len(tracks_by_link) == 1:
-        return tracks_by_link[1]
+        return tracks_by_link[0]
 
     tracks = Track.objects.filter(name__icontains=track_name)
     if len(tracks) == 1:

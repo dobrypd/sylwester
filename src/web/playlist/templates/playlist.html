@@ -97,9 +97,12 @@
     </table>
     </div>
     {% else %}
-    <h2><strong>50 losowych</strong> utworów z playlisty:</h2>
+    <h2><strong>Lista</strong>:</h2>
     <button class="btn btn-primary" onclick="reload_playlist(); return false;">
-     <i class="glyphicon glyphicon-refresh"></i>
+     <i class="glyphicon glyphicon-refresh"></i> 20 losowych
+    </button>
+    <button class="btn btn-primary" onclick="load_top_list(); return false;"  data-toggle="tooltip" title="Na parę dni przed sylwestrem będzie to zablokowane.">
+     <i class="glyphicon glyphicon-eye-open"></i> Pokaż TOP!
     </button>
     <table class="table table-hover">
      <thead>
