@@ -1,0 +1,141 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          skeleton
+# Required-Start:    $nginx
+# Required-Stop:     $nginx
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts sylwester's fcgi
+# Description:       starts sylwester's fcgi django daemon 
+### END INIT INFO
+
+# Author: Piotr Dobrowolski <dobrypd@gmail.com>
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="Sylwester django app"
+NAME=sylwester
+DAEMON=/srv/sylwester/env/bin/python
+DAEMON_ARGS="/srv/sylwester/manage.py runfcgi host=127.0.0.1 port=8080"
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+USER=sylwester
+
+# Exit if the package is not installed
+[ -x "$DAEMON" ] || exit 0
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+#
+# Function that starts sylwester
+#
+do_start()
+{
+	# Return
+	#   0 if daemon has been started
+	#   1 if daemon was already running
+	#   2 if daemon could not be started
+        
+        # 1 - check if already started
+        if [ `ps aux | grep python | grep sylwester | grep "host=127.0.0.1" | grep "port=8080" | wc -l` -gt 0 ]
+        then
+            return 1
+        fi
+        # rm pidfile
+        rm -f $PIDFILE
+
+        #start
+        /bin/su $USER << 'EOF'
+source /srv/sylwester/env/bin/activate
+python /srv/sylwester/manage.py runfcgi host=127.0.0.1 port=8080
+EOF
+        #check if started
+        if [ `ps aux | grep python | grep sylwester | grep "host=127.0.0.1" | grep "port=8080" | wc -l` -le 0 ]
+        then
+            return 2
+        fi
+
+        ps aux | grep python | grep sylwester | grep "host=127.0.0.1" | grep "port=8080" | cut -d' ' -f7 >> $PIDFILE
+
+        return 0
+       
+}
+
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+	# Return
+	#   0 if daemon has been stopped
+	#   1 if daemon was already stopped
+	#   2 if daemon could not be stopped
+	#   other if a failure occurred
+
+        #check if already stopped
+        if [ `ps aux | grep python | grep sylwester | grep "host=127.0.0.1" | grep "port=8080" | wc -l` -le 0 ]
+        then
+	    rm -f $PIDFILE
+            return 1
+        fi
+
+        kill `cat $PIDFILE`
+	rm -f $PIDFILE
+
+        sleep 1
+        #check if topped
+        if [ `ps aux | grep python | grep sylwester | grep "host=127.0.0.1" | grep "port=8080" | wc -l` -gt 0 ]
+        then
+            return 2
+        fi
+
+        return 0
+
+
+}
+
+case "$1" in
+  start)
+	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+	do_start
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
+	;;
+  stop)
+	[ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
+	do_stop
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
+	;;
+  status)
+	status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
+	;;
+  restart|force-reload)
+	log_daemon_msg "Restarting $DESC" "$NAME"
+	do_stop
+	case "$?" in
+	  0|1)
+		do_start
+		case "$?" in
+			0) log_end_msg 0 ;;
+			1) log_end_msg 1 ;; # Old process is still running
+			*) log_end_msg 1 ;; # Failed to start
+		esac
+		;;
+	  *)
+		# Failed to stop
+		log_end_msg 1
+		;;
+	esac
+	;;
+  *)
+	echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
+	exit 3
+	;;
+esac
+
+:

@@ -1,0 +1,4 @@
+Create user sylwester
+
+install nginx
+

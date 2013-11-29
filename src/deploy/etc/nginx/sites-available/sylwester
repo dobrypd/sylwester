@@ -1,0 +1,32 @@
+
+server {
+	server_name www.sylwesterczarnorzeki.dobrowolski.net.pl;
+	return 301 $scheme://sylwesterczarnorzeki.dobrowolski.net.pl$request_uri;
+}
+server {
+	listen   80;
+
+	server_name sylwesterczarnorzeki.dobrowolski.net.pl;
+	access_log /var/log/nginx/sylwester.access.log;
+	error_log /var/log/nginx/sylwester.error.log;
+
+	location / {
+		fastcgi_split_path_info ^()(.*)$;
+		include fastcgi_params;
+		fastcgi_pass 127.0.0.1:8080;
+	}
+	location /static/ {
+		alias /srv/sylwester/static/;
+		expires 30d;
+	}
+	#error_page 404 /404.html;
+
+	# redirect server error pages to the static page /50x.html
+	#
+	#error_page 500 502 503 504 /50x.html;
+	#location = /50x.html {
+	#	root /usr/share/nginx/www;
+	#}
+
+}
+
