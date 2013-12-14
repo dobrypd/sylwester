@@ -4,6 +4,8 @@
    
 {% block content %}
 
+<div class="container marketing" id="start">
+
 {% if form.errors %}
     <div class="alert alert-error">
         Błąd podczas tworzenia konta.
@@ -12,7 +14,7 @@
 
 <div class="row">
 
-<form action="{% url 'new_account' %}" method="post" class="form well">
+<form action="{% url 'new_account' %}" method="post" class="well">
 	{% csrf_token %}
 	{{ form.as_p }}
     <input type="submit" value="Zapisz" class="button btn btn-primary" />
