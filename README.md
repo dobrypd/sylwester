@@ -14,7 +14,7 @@ I wrote it before New Year's Eve party in 2012 for my friends.
 
 
 Imagine an event for much more than 100 people, without DJ.
-There are plenty of music collection created directly for such a occasions.
+There are plenty of music collection created directly for such a occasion.
 But there are without context, without connection to
 the direct group of people.
 
