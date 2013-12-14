@@ -51,7 +51,7 @@ WARNING
 -------
 
 Be aware of using this code in your project.
-I wrote all this code in few evenings.
+I wrote all this code in a few evenings.
 It certainly contains some bugs.
 
 
