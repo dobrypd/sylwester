@@ -69,6 +69,7 @@ def check_is_this_same(track1, track2):
 
     if track1.name == track2.name:
         return True
+        # XXX: 'NoName' case
 
     strings1 = track1.name.split()
     strings2 = track2.name.split()
@@ -80,7 +81,7 @@ def check_is_this_same(track1, track2):
             and DamerauLevenshteinDistance(word_in_1.lower(),
                                            word_in_2.lower()) < 2):
                 found_w += 1
-                if (found_w > 1):
+                if (found_w > 1): ###XXX: what did I done here?!
                     return True
 
     if DamerauLevenshteinDistance(track1.name, track2.name) < 10:

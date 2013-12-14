@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 from sylwester import settings
 from django.core.management  import setup_environ
 
@@ -13,10 +12,10 @@ import subprocess
 import sys
 import os
 
-YT_D = "youtube-dl"
-FFMPEG = "ffmpeg"
 
-REMOVE_ORIGINALS = True
+GRABBER = "grabber" # grabber is youtube-dl wrapper
+
+REMOVE_ORIGINALS = False
 PROCESSESS_CONCURRENT = 3  # x2 because of ffmpeg
 
 
@@ -37,7 +36,7 @@ def download(directory):
     for track in qs:
         done += 1
         curr_pr += 1
-        cmd = [YT_D, track.link]
+        cmd = [GRABBER, track.link]
         if (want_download(directory, track)):
             pids.append((subprocess.Popen(cmd,
                                    stdout=subprocess.PIPE,
@@ -73,67 +72,6 @@ def download(directory):
     print "---------------------"
 
 
-def change_to_mp3(directory, downloaded):
-    cannot_change = []
-    changed = []
-    curr_pr = 0
-    pids = []
-    for track, file_name in downloaded:
-        curr_pr += 1
-        output_file_name = "".join(track.name.split()) + ".mp3"
-        cmd = [FFMPEG, "-i", file_name, output_file_name]
-        pids.append((subprocess.Popen(cmd,
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE,
-                               stdin=subprocess.PIPE,
-                               cwd=directory),
-                     track, file_name))
-        if (curr_pr >= PROCESSESS_CONCURRENT):            
-            for pid, track, file_name in pids:
-                pid.wait()
-                errors = pid.stderr.readlines()
-                bad = False
-                for line in errors:
-                    if line.find("Unable") != -1:
-                        bad = True
-                    if line.find("Invalid") != -1:
-                        bad = True
-                if bad:
-                    cannot_change.append((track, file_name, output_file_name))
-                else:
-                    if REMOVE_ORIGINALS:
-                        try:
-                            os.remove(directory + "/" + file_name)
-                        except:
-                            pass
-                    changed.append((track, file_name, output_file_name))
-            curr_pr = 0
-            pids = []
-
-    for pid, track, file_name in pids:
-        pid.wait()
-        errors = pid.stderr.readlines()
-        bad = False
-        for line in errors:
-            if line.find("Unable") != -1:
-                bad = True
-            if line.find("Invalid") != -1:
-                bad = True
-        if bad:
-            cannot_change.append((track, file_name, output_file_name))
-        else:
-            if REMOVE_ORIGINALS:
-                os.remove(directory + "/" + file_name)
-            changed.append((track, file_name, output_file_name))
-    
-    print "-- CANNOT CHANGE TO MP3 --"
-    for track, file_name, output_file_name in cannot_change:
-        print track, file_name, output_file_name 
-    print "---------------------"
-    
-    return changed
-
-
 def main():
     if (len(sys.argv) != 2):
         print "Usage: " + sys.argv[0] + " output_directory"
@@ -142,9 +80,9 @@ def main():
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
     if not os.path.isdir(output_directory):
-        print output_directory + ": It's not directory!"
+        print output_directory + ": It's not a directory!"
     
-    change_to_mp3(output_directory, download(output_directory))
+    download(output_directory)
 
 if __name__ == "__main__":
     main()

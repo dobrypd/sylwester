@@ -11,6 +11,7 @@ import urllib2
 from django.db.models.aggregates import Count
 import datetime
 
+#XXX: to settings
 EVE_YEAR = 2013
 
 
