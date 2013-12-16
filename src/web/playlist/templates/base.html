@@ -81,32 +81,42 @@
 </div><!-- /.container -->
 
 <!-- MODALS -->
-<div class="modal hide fade" id="fatal_error">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Ohhh no!!!!!!!!</h3>
-  </div>
-  <div class="modal-body">
-    <p class="error_msg">Coś strasznego stało się z serwerem, pewnie jest za dużo ludzi i nie wydala, poczekaj chwilę.</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Spoko</a>
-  </div>
-</div>
+<div class="modal fade" id="fatal_error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Ojjj...</h4>
+      </div>
+      <div class="modal-body">
+        <p class="error_msg">Coś strasznego stało się z serwerem, pewnie jest za dużo ludzi i nie wydala, poczekaj chwilę.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Spoko</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-<div class="modal hide fade" id="normal_error">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Ojjj...</h3>
-  </div>
-  <div class="modal-body">
-    <p class="error_msg">Chyba coś przekombinowałeś...</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Spoko</button>
-  </div>
-</div>
 
+
+
+<div class="modal fade" id="normal_error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Ojjj...</h4>
+      </div>
+      <div class="modal-body">
+        <p class="error_msg">Chyba coś przekombinowałeś...</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Spoko</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
     <!-- Bootstrap core JavaScript

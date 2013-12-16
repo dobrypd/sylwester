@@ -159,10 +159,48 @@ var load_list = function(){
     });
 };
 
+var load_last_list = function(){
+	var list = $("#list");
+
+	$.getJSON('/playlist/get_list/20?xhr&last',
+		{}, 
+		function(json, status, xhr) {
+			if (status == "error") {
+				var msg = "K%%%a coś nie działa :/ sory ";
+				msg += xhr.status + " " + xhr.statusText;
+				my_alert(msg, null, true);
+  			}
+			if (status == "success") {
+				list.hide('slow');
+				draw_list(list, json, false);
+				list.show('slow');
+			}
+    });
+};
+
 var load_top_list = function(){
 	var list = $("#list");
 
-	$.getJSON('/playlist/get_top_list?xhr',
+	$.getJSON('/playlist/get_list/200?xhr&top_list',
+		{}, 
+		function(json, status, xhr) {
+			if (status == "error") {
+				var msg = "K%%%a coś nie działa :/ sory ";
+				msg += xhr.status + " " + xhr.statusText;
+				my_alert(msg, null, true);
+  			}
+			if (status == "success") {
+				list.hide('slow');
+				draw_list(list, json, false);
+				list.show('slow');
+			}
+    });
+};
+
+var load_popular_list = function(){
+	var list = $("#list");
+
+	$.getJSON('/playlist/get_list/20?xhr&popular',
 		{}, 
 		function(json, status, xhr) {
 			if (status == "error") {

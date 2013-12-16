@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-        ('Piotr Dobrowolski', 'dobrypd@gmiail.com'),
+        ('Piotr Dobrowolski', 'dobrypd@gmail.com'),
 )
 
 ALLOWED_HOSTS = ['sylwesterczarnorzeki.dobrowolski.net.pl', 'groovie', 'dobrowolski.net.pl']

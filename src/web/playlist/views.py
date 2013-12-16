@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 import urllib2
 from django.db.models.aggregates import Count
 import datetime
+import random
 
 #XXX: to settings
 EVE_YEAR = 2013
@@ -218,15 +219,18 @@ def get_my_list(request):
 
     return Http404
 
-
+@login_required
 def get_list(request, how_many):
     xhr = 'xhr' in request.GET
     iam_hakier = 'hakier' in request.GET
+    last = 'last' in request.GET
+    top_list = 'top_list' in request.GET
+    popular = 'popular' in request.GET
 
     if xhr:
         tracks = []
         try:
-            if ((datetime.datetime.today()).year > EVE_YEAR) or iam_hakier:
+            if (top_list and (datetime.datetime.today()).year > EVE_YEAR) or iam_hakier:
                 qs = Vote.objects.values('track').annotate(
                         votes=Count('track')).order_by('-votes')
                 last_votes = qs[0]['votes']
@@ -242,15 +246,39 @@ def get_list(request, how_many):
                         'link': track.link,
                         'votes': row['votes'],
                         'position': last_position})
+            elif not (top_list):
+                if last:
+                    qs = Track.objects.all().order_by("-add_time")
+                    for row in qs[:how_many]:
+                        tracks.append({
+                            'id': row.id,
+                            'name': row.name,
+                            'link': row.link})
+                elif popular:
+                    qs = Vote.objects.values('track').annotate(
+                            votes=Count('track')).order_by('-votes')
+                    how_many = int(how_many)
+                    hm = int(int(how_many) * 1.5)
+                    for row in qs[:hm]:
+                        track = Track.objects.get(id=row['track'])
+                        tracks.append({
+                            'id': track.id,
+                            'name': track.name,
+                            'link': track.link})
+                    random.shuffle(tracks)
+                    tracks = tracks[:how_many]
+                else:
+                    qs = Track.objects.all().order_by("?")
+                    for row in qs[:how_many]:
+                        tracks.append({
+                            'id': row.id,
+                            'name': row.name,
+                            'link': row.link})                
             else:
-                qs = Track.objects.all().order_by("?")
-                for row in qs[:how_many]:
-                    tracks.append({
-                        'id': row.id,
-                        'name': row.name,
-                        'link': row.link})
-        except:
-            pass
+                tracks = []
+        except Exception as e:
+            raise e
+            tracks = []
 
         return HttpResponse(simplejson.dumps(tracks),
                             mimetype='application/json')
@@ -260,6 +288,8 @@ def get_list(request, how_many):
 
 @login_required
 def get_top_list(request):
+    return Http404 #currently it's banned
+
     xhr = 'xhr' in request.GET
 
     if xhr:

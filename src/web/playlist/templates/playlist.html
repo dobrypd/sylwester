@@ -99,10 +99,16 @@
     {% else %}
     <h2><strong>Lista</strong>:</h2>
     <button class="btn btn-primary" onclick="reload_playlist(); return false;">
-     <i class="glyphicon glyphicon-refresh"></i> 20 losowych
+     <i class="glyphicon glyphicon-refresh"></i> losowe
     </button>
-    <button class="btn btn-primary" onclick="load_top_list(); return false;"  data-toggle="tooltip" title="Na parę dni przed sylwestrem będzie to zablokowane.">
-     <i class="glyphicon glyphicon-eye-open"></i> Pokaż TOP!
+    <button class="btn btn-primary" onclick="load_last_list(); return false;">
+     <i class="glyphicon glyphicon-eye-close"></i> ostatnio dodane
+    </button>
+    <button class="btn btn-primary" onclick="load_popular_list(); return false;">
+     <i class="glyphicon glyphicon-heart"></i> popularne
+    </button>
+    <button class="btn btn-primary" onclick="load_top_list(); return false;" disabled="disabled">
+     <i class="glyphicon glyphicon-eye-open"></i> TOP LISTA
     </button>
     <table class="table table-hover">
      <thead>
