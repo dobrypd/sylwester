@@ -26,8 +26,7 @@ Moreover we need system to create simple communication schema.
 I.e. to choose catering. But that part of this app didn't pass exam,
 everyone just used facebook for this.
 
-This app successfully created playlists for New Year's Eve 2012 party.
-For 2013 is in progress.
+This app successfully created playlists for New Year's Eve 2012 and 2013 party.
 
 
 Typical flow
